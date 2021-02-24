@@ -1,4 +1,4 @@
-import firebase from "firebase"
+import firebase from "firebase";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -13,4 +13,13 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-export default firebaseConfig;
+
+export default function uploadImage(file) {
+    const storageRef = firebase.storage().ref(`images/${file.name}`);
+    storageRef.put(file).then(function () {
+        console.log("Upload thành công");
+        storageRef.getDownloadURL().then((url) => {
+            console.log(url);
+        })
+    })
+}
